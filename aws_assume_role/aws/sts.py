@@ -1,5 +1,3 @@
-import os
-import platform
 from typing import Callable
 
 import boto3
@@ -42,25 +40,3 @@ class StsClient:
             return self.landing_account_id is None or response['Account'] == self.landing_account_id
         except BotoCoreError as e:
             raise InvalidCredentialsException from e
-
-    def _get_tags(self) -> [{str: str}]:
-        return [
-            {
-                'Key': 'UserOS',
-                'Value': os.environ.get('USER', 'Unknown')
-            },
-            {
-                'Key': 'Shell',
-                'Value': os.environ.get('SHELL', 'Unknown')
-            },
-            {
-                'Key': 'Term',
-                'Value': os.environ.get('TERM', 'Unknown')
-            },
-            {
-                'Key': 'Platform',
-                'Value': platform.platform()
-            },
-        ]
-
-
