@@ -6,13 +6,13 @@ authors = ["Aran Moncusí Ramírez <aran@digitalpoet.info>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-boto3 = "^1.21.43"
+boto3 = "^1.26.00"
 argparse = "^1.4.0"
 pyperclip = "^1.8.2"
 configparser = "^5.2.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^7.2.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
