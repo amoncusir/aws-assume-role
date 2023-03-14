@@ -23,6 +23,9 @@ def _get_parser():
     parser.add_argument('--configure', action='store_true',
                         help='Start the configuration process and ignore other parameters')
 
+    parser.add_argument('-l', '--list', action='store_true',
+                        help='List all profiles')
+
     parser.add_argument('-r', '--region', action='store',
                         help='Override the region parameter over the configuration file')
 
@@ -78,12 +81,26 @@ def get_authorization_writer(args: Namespace, config: Configuration) -> Authoriz
     return ConfigFileAuthorizationWriter(config)
 
 
+def list_all_profiles(args: Namespace):
+    config_path = Path(args.config_path)
+
+    if not config_path.exists():
+        raise ConfigurationNotFoundException("Config file not found, please, run with the --config flag first!")
+
+    config = configuration.read_config(config_path)
+
+    for profile in config.stored_profiles:
+        print(profile.name)
+
+
 def main():
     parser = _get_parser()
     arguments = parser.parse_args()
 
     if arguments.configure:
         start_configuration(arguments)
+    elif arguments.list:
+        list_all_profiles(arguments)
     elif arguments.profile is None:
         parser.error("You must be define a profile or set the --configure flag. Run flag -h to get more information")
     else:

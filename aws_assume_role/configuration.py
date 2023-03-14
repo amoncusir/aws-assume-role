@@ -7,6 +7,7 @@ from typing import Final, List, Optional, get_type_hints, get_args, Dict
 from aws_assume_role.exceptions import ConfigurationNotFoundException
 from aws_assume_role.utils.typing_utils import is_optional
 
+
 CONFIG_FILE_NAME: Final[str] = '.aws_assume_role.config'
 
 
@@ -33,7 +34,7 @@ class Dictionable:
             setattr(self, key, item_type(value))
         else:
 
-            setattr(self, key, value)
+            setattr(self, key, None)
 
     def __delitem__(self, key):
         setattr(self, key, getattr(self.__class__, key))
